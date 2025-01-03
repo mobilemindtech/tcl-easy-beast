@@ -1,0 +1,36 @@
+#!/usr/bin/env tclsh
+
+
+lappend auto_path [file join [pwd] .. build]
+
+load ../easy_beast/libeasy_beast.so
+
+package require tcltest
+package require EasyBeast
+package require tools
+
+namespace import ::tcltest::*
+namespace import ::tools::assert::*
+namespace import ::tools::lists::*
+
+
+proc handler {req} {
+    puts "::::>> handler $req"
+    return [dict create \
+		status 200 \
+		body {hello, world!} \
+		headers [dict create \
+			     Content-Type text/plain \
+			     Auth test \
+			    ]]
+}
+
+test test-server {} -body {
+
+    ::EasyBeast::serve 0.0.0.0 3000 ::handler
+
+    return 0
+    
+} -result 1
+
+cleanupTests
