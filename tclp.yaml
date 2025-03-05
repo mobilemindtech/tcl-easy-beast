@@ -1,22 +1,13 @@
 app:
   name: easybeast
-  description: easybeast descripiton
+  description: Web server on top boost beast
   #entrypoint: ./main.tcl
   testdir: ./tests
-dependencies:
-  #- https://github.com/mobilemindtech/tcl-request.git
-  #- https://github.com/mobilemindtech/tcl-sjson.git
-  #- https://github.com/mobilemindtech/tcl-tools.git
-  #- http-tcl # import c tcl lib
-requirements:
-  packages: 
-  #  - mysqltcl # check if package is installed
-  #  - tcllib
-  cmds:
-  #  - curl --version # check curl is installed
   
 build:
+  libdir: build/easy_beast
   cmds:
+    - mkdir build && cd build && cmake .. && make
 # TCL c lib install
 #http-tcl:
 #  url: https://github.com/anticrisis/tcl-http.git
