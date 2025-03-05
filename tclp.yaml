@@ -5,7 +5,7 @@ app:
   testdir: ./tests
   
 build:
-  libdir: build/easy_beast
+  libdir: build/easybeast
   cmds:
     - mkdir build && cd build && cmake .. && make
 # TCL c lib install
