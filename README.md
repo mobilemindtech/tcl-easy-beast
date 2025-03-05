@@ -3,7 +3,7 @@
 ### Usage
 
 ```tcl
-package require EasyBeast
+package require easybeast
 
 
 proc handler {req} {
@@ -20,7 +20,7 @@ proc handler {req} {
 			     Content-Type text/plain]
 }
 
-::EasyBeast::serve 0.0.0.0 3000 ::handler
+::easybeast::serve 0.0.0.0 3000 ::handler
 
 
 ``` 
