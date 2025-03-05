@@ -30,6 +30,12 @@ void req_to_dict(request_t* req, Tcl_Obj *objReq){
 		   objReq,
 		   Tcl_NewStringObj("body", 4),
 		   Tcl_NewStringObj(req->body->body, req->body->size));
+  } else {
+    Tcl_DictObjPut(interp_,
+		   objReq,
+		   Tcl_NewStringObj("body", 4),
+		   Tcl_NewStringObj("", 0));
+	
   }
 
   headers_count = req->headers->size;
@@ -148,10 +154,10 @@ response_t* callback_sync(request_t* req) {
 
 
 int
-easy_beast_serve(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[]);
+easybeast_serve(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[]);
 
 int
-Easy_beast_Init(Tcl_Interp *interp)
+Easybeast_Init(Tcl_Interp *interp)
 {
     Tcl_Namespace *nsPtr;
 
@@ -159,19 +165,20 @@ Easy_beast_Init(Tcl_Interp *interp)
         return TCL_ERROR;
     }
 
-    nsPtr = Tcl_CreateNamespace(interp, "EasyBeast", NULL, NULL);
+    nsPtr = Tcl_CreateNamespace(interp, "easybeast", NULL, NULL);
 
     if(nsPtr == NULL) {
         return TCL_ERROR;
     }
 
-    Tcl_CreateObjCommand(interp, "EasyBeast::serve", easy_beast_serve, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "easybeast::serve", easybeast_serve, NULL, NULL);
 
     //Tcl_Export(interp, nsPtr, "parse", 0);
 
-    if(Tcl_PkgProvide(interp, "EasyBeast", "0.1") == TCL_ERROR) {
+    if(Tcl_PkgProvide(interp, "easybeast", "0.1") == TCL_ERROR) {
         return TCL_ERROR;
     }
+
 
     return TCL_OK;
 }
@@ -192,7 +199,7 @@ Easy_beast_Init(Tcl_Interp *interp)
  * @return Success or failure
  */
 int
-easy_beast_serve(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[])
+easybeast_serve(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[])
 {
   int resultCode = TCL_OK, port, thread_count = 1;
   char *hostname, *opt, *callback;

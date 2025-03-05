@@ -1,12 +1,12 @@
 #!/usr/bin/env tclsh
 
 
-lappend auto_path [file join [pwd] .. build]
+lappend auto_path [file join [pwd] .. easybeast]
 
-load ../easy_beast/libeasy_beast.so
+#load ../easybeast/libeasybeast.so
 
 package require tcltest
-package require EasyBeast
+package require easybeast
 package require tools
 
 namespace import ::tcltest::*
@@ -27,7 +27,7 @@ proc handler {req} {
 
 test test-server {} -body {
 
-    ::EasyBeast::serve 0.0.0.0 3000 ::handler
+    ::easybeast::serve 0.0.0.0 3000 ::handler
 
     return 0
     
